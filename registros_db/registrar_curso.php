@@ -1,19 +1,12 @@
-<?php
-if (!empty($_REQUEST)) {
-     include("conexion.php");
 
-     $sql="insert into curso(nombre,estado) values 
-     ('$_POST[nombre]','$_POST[estado]')";
-
-     mysqli_query($conexion,$sql)
-        or die("Problemas en el select" . mysqli_error($conexion));
-
-     mysqli_close($conexion);
-
-     header("Location: ../index.php");
-    }
-?>
 <html >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style.css">
+    <title>Registrar Curso</title>
+</head>
+<body>
    <section>
         <h1>Registrar cursos</h1>
         <form action="registrar_curso.php" method="post">
@@ -30,6 +23,23 @@ if (!empty($_REQUEST)) {
             <input type="submit" value="Registrar">
         </form>
         <a href="../index.php">← Volver al menú</a>
-
    </section>
+</body>
 </html>
+
+<?php
+if (!empty($_REQUEST)) {
+     include("conexion.php");
+
+     $sql="insert into curso(nombre,estado) values 
+     ('$_POST[nombre]','$_POST[estado]')";
+
+     mysqli_query($conexion,$sql)
+        or die("Problemas en el select" . mysqli_error($conexion));
+
+     mysqli_close($conexion);
+     header("Location: ../index.php");
+
+
+    }
+?>

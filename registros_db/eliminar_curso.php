@@ -10,12 +10,13 @@ die("Problemas en el select cursos" . mysqli_error(mysql: $conexion));
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="../style.css">
+    <title>Eliminar Curso</title>
 </head>
 <body>
         <section>
         <h1>Eliminar curso</h1>
-        <form action="registros_db/eliminar_curso.php" method="post">
+        <form action="eliminar_curso.php" method="post" onsubmit="return confirm('¿Está seguro de que desea eliminar este curso?');">
             Ingrese nombre del curso a eliminar:
             <input type="text" name="nombre" required><br>
             <input type="submit" value="Eliminar">
@@ -39,7 +40,6 @@ die("Problemas en el select cursos" . mysqli_error(mysql: $conexion));
             <?php endwhile; ?>
         </table>
         </section>
-        <a href="../index.php">←Volver al menú</a>
 
 </body>
 </html>
@@ -56,15 +56,17 @@ if (!empty($_POST['nombre'])) {
 
         $eliminar = mysqli_query($conexion, "delete from curso where nombre='$nombre'")
             or die("Error al eliminar: " . mysqli_error($conexion));
+            header("Location: ../index.php");
         
-        echo "Curso $nombre eliminado correctamente.<br>";
     } else {
         echo "No existe un curso con ese nombre.<br>";
     }
 
-    echo "<a href='/web-03-04-25/index.php'>Volver</a>";
     mysqli_close($conexion);
 
 }
 ?>
+
+<a href="../index.php">←Volver al menú</a>
+
 

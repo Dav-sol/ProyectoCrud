@@ -15,7 +15,7 @@ die("Problemas en el select alumnos" . mysqli_error(mysql: $conexion));
 <body>
 <section>
     <h1>Modificar alumno</h1>
-    <form action="registros_db/modificar_alumno.php" method="post">
+    <form action="modificar_alumno.php" method="post">
         Código del alumno: <input type="number" name="codigo_viejo" required><br><br>
         Nuevo código del alumno: <input type="number" name="codigo_nuevo" required><br><br>
         Nuevo nombre: <input type="text" name="nombre" required><br><br>

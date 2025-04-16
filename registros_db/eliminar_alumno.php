@@ -15,7 +15,7 @@ $alumnos = mysqli_query(mysql: $conexion, query: "SELECT codigo, nombre, mail FR
 <body>
     <section>
         <h1>Eliminar alumno por código</h1>
-        <form action="eliminar_alumno.php" method="post">
+        <form action="eliminar_alumno.php" method="post" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este alumno?');">
             <label>Ingrese código:
                 <input type="number" name="codigo" required><br>
             </label>
@@ -58,11 +58,15 @@ if (!empty($_POST['codigo'])) {
             or die("Error al eliminar: " . mysqli_error($conexion));
         
             echo "Alumno con código $codigo y nombre $nombre eliminado correctamente.<br>";
+
+            header("Location: ../index.php");
+            exit(); // Asegúrate de salir después de redirigir
         } else {
         echo "No existe un alumno con ese código.<br>";
     }
 
-    echo "<a href='../index.php'>Volver</a>";
     mysqli_close($conexion);
+
+   
 }
 ?>
