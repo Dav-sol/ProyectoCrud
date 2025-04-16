@@ -1,0 +1,57 @@
+body{
+    background-color: #ffffff;
+    padding: 20px;
+}
+
+h1{
+    color: #000000;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    margin: 20px 0;
+    background-color: #fff;
+    color: black;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+form{
+    margin-top: 20px;
+    background-color: #e3dcdc;
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+    align-items: center;
+
+}
+
+input,select, button{
+    padding: 10px;
+    margin: 8px 0;
+    width: auto;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    align-items: center;
+}
+
+input[type="radio"]{
+    width: auto;
+}
+
+button{
+    background-color: #00bcd4;
+    color: white;
+    cursor: pointer;
+}
+
+
+
+
+
