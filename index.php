@@ -19,7 +19,7 @@ $cursos = mysqli_query(mysql: $conexion, query: "SELECT id, nombre, estado FROM 
 </head>
 
 <body>
-    <h1>Menu Principal</h1>
+    <h1>Menu - git Principal</h1>
     <section>
         <h1>Lista de alumnos</h1>
         <table border="1">
