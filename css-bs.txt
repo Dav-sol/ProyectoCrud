@@ -1,0 +1,364 @@
+================================================
+FILE: README.md
+================================================
+# WEB-3-04-25
+
+
+================================================
+FILE: web-03-04-25/index.php
+================================================
+<?php
+include("registros_db/conexion.php");
+
+$cursos_select = mysqli_query(mysql: $conexion, query: "SELECT id, nombre FROM curso") or
+    die("Problemas en el select cursos" . mysqli_error(mysql: $conexion));
+
+$alumnos = mysqli_query(mysql: $conexion, query: "SELECT codigo, nombre, mail FROM alumnos") or
+    die("Problemas en el select alumnos" . mysqli_error(mysql: $conexion));
+
+$cursos = mysqli_query(mysql: $conexion, query: "SELECT id, nombre, estado FROM curso") or
+    die("Problemas en el select cursos" . mysqli_error(mysql: $conexion));
+
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Menu Principal</h1>
+
+    <h1>Registrar alumnos</h1>
+    <form action="registros_db/registrar_alumno.php" method="post">
+        Ingrese nombre:
+        <input type="text" name="nombre"><br>
+        Ingrese mail:
+        <input type="text" name="mail"><br>
+        Seleccione el curso:
+        <select name="codigocurso">
+            <?php while ($curso = mysqli_fetch_array($cursos_select)): ?>
+                <option value="<?= $curso['id'] ?>"><?= $curso['nombre'] ?></option>
+            <?php endwhile; ?>
+        </select>
+        <br>
+        <input type="submit" value="Registrar">
+    </form>
+    <section>
+    <h1>Registrar curso</h1>
+    <form action="registros_db/registrar_curso.php" method="post">
+        Ingrese nombre del curso:
+        <input type="text" id="nombre" name="nombre" required><br><br>
+        Seleccione el estado del curso:
+        <select name="estado">
+            <option value="A">activo</option>
+            <option value="I">inactivo</option>
+        </select>
+        <br>
+        <input type="submit" value="Registrar">
+
+    </form>
+    </section>
+
+
+    <h1>Lista de alumnos</h1>
+    <table border="1">
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Mail</th>
+            <?php while ($alumno = mysqli_fetch_assoc($alumnos)): ?>
+            <tr>
+                <td><?= $alumno['codigo'] ?></td>
+                <td><?= $alumno['nombre'] ?></td>
+                <td><?= $alumno['mail'] ?></td>
+            </tr>
+        <?php endwhile; ?>
+
+        </tr>
+    </table>
+
+    <h1>Lista de cursos </h1>
+    <table border="1">
+        <tr>
+            <th>id</th>
+            <th>Nombre</th>
+            <th>Estado</th>
+            <?php while ($curso = mysqli_fetch_assoc($cursos)): ?>
+            <tr>
+                <td><?= $curso['id'] ?></td>
+                <td><?= $curso['nombre'] ?></td>
+                <td><?= $curso['estado'] ?></td>
+            </tr>
+        <?php endwhile; ?>
+        </tr>
+    </table>
+
+
+
+    <section>
+        <h1>Buscar alumno por mail</h1>
+        <form action="registros_db/consulta_alumno.php" method="get">
+            Ingrese mail:
+            <input type="text" name="mail"><br>
+            <input type="submit" value="Buscar">
+        </form>
+    </section>
+
+    <section>
+        <h1>Eliminar alumno por mail</h1>
+        <form action="registros_db/eliminar_alumno.php" method="post">
+            Ingrese mail del alumno a eliminar:
+            <input type="email" name="mail" required><br>
+            <input type="submit" value="Eliminar">
+        </form>
+    </section>
+
+    <section>
+        <h1>eliminar curso</h1>
+        <form action="registros_db/eliminar_curso.php" method="post">
+            Ingrese nombre del curso a eliminar:
+            <input type="text" name="nombre" required><br>
+            <input type="submit" value="Eliminar">
+        </form>
+    </section>
+
+    <section>
+        <h1>Eliminar todos los registros</h1>
+        <form action="registros_db/eliminar_todo.php" method="post">
+            <label>¿Qué deseas borrar?</label><br>
+            <input type="radio" name="tabla" value="alumno"> Todos los alumnos<br>
+            <input type="radio" name="tabla" value="curso"> Todos los cursos<br><br>
+            <input type="submit" value="Eliminar todo">
+        </form>
+    </section>
+
+    <section>
+        <h1>Modificar alumnos</h1>
+        <form action="registros_db/modificar_alumno.php" method="post">
+            Correo actual: <input type="email" name="mail_viejo" required><br><br>
+            Nuevo correo: <input type="email" name="mail_nuevo" required><br><br>
+            <input type="submit" value="Actualizar correo">
+        </form>
+    </section>
+
+
+</body>
+
+</html>
+
+
+================================================
+FILE: web-03-04-25/registros_db/conexion.php
+================================================
+<?php
+$conexion = mysqli_connect("localhost", "root", "", "unisimon") or
+    die("Error de conexion");
+if (isset($conexion)) {
+    echo "Conectando a la base de datos..." . "<br>";
+    
+} else {
+    echo "Error de conexion";
+}
+?>
+
+
+================================================
+FILE: web-03-04-25/registros_db/consulta_alumno.php
+================================================
+<?php 
+if (!empty($_GET['mail'])) {  
+    include("conexion.php");
+
+    $email = $_GET['mail'];  
+    
+    $sql="select * from alumnos where mail='$email'";
+    
+    $alumnos = mysqli_query($conexion, $sql) 
+        or die("Problemas en el select: " . mysqli_error($conexion));
+    
+    mysqli_close($conexion);
+
+    if (mysqli_num_rows($alumnos) > 0) {
+        while ($alumno = mysqli_fetch_array($alumnos)) {
+        echo "Código: " . $alumno['codigo'] . "<br>";
+        echo "Nombre: " . $alumno['nombre'] . "<br>";
+        echo "Curso: " . $alumno['codigocurso'] . "<br>";
+        echo "Mail: " . $alumno['mail'] . "<br>";
+        echo "<br><a href='../index.php'>Volver</a>";
+
+        }
+    } else {
+        echo "No se encontraron resultados para el correo electrónico: $email";
+        echo "<br><a href='../index.php'>Volver</a>";
+    }
+        
+
+}
+?>
+
+
+
+
+
+
+================================================
+FILE: web-03-04-25/registros_db/eliminar_alumno.php
+================================================
+<?php
+if (!empty($_POST['mail'])) {
+    include("conexion.php");
+
+    $mail = $_POST['mail'];
+
+    $consulta = mysqli_query($conexion, "select * from alumnos where mail='$mail'");
+    
+    if (mysqli_num_rows($consulta) > 0) {
+
+        $eliminar = mysqli_query($conexion, "delete from alumnos where mail='$mail'")
+            or die("Error al eliminar: " . mysqli_error($conexion));
+        
+        echo "Alumno con mail $mail eliminado correctamente.<br>";
+    } else {
+        echo "No existe un alumno con ese mail.<br>";
+    }
+
+    echo "<a href='/web-03-04-25/index.php'>Volver</a>";
+    mysqli_close($conexion);
+} 
+?>
+
+
+
+
+================================================
+FILE: web-03-04-25/registros_db/eliminar_curso.php
+================================================
+<?php
+if (!empty($_POST['nombre'])) {
+    include("conexion.php");
+
+    $nombre = $_POST['nombre'];
+
+    $consulta = mysqli_query($conexion, "select * from curso where nombre='$nombre'");
+    
+    if (mysqli_num_rows($consulta) > 0) {
+
+        $eliminar = mysqli_query($conexion, "delete from curso where nombre='$nombre'")
+            or die("Error al eliminar: " . mysqli_error($conexion));
+        
+        echo "Curso $nombre eliminado correctamente.<br>";
+    } else {
+        echo "No existe un curso con ese nombre.<br>";
+    }
+
+    echo "<a href='/web-03-04-25/index.php'>Volver</a>";
+    mysqli_close($conexion);
+
+}
+?>
+
+
+
+
+================================================
+FILE: web-03-04-25/registros_db/eliminar_todo.php
+================================================
+<?php
+if (!empty($_POST['tabla'])) {
+    include("conexion.php");
+
+    $tabla = $_POST['tabla'];
+
+    if ($tabla === "alumno" || $tabla === "curso") {
+        $sql="delete from $tabla";
+         if (mysqli_query($conexion, $sql)){
+            echo "Se eliminaron todos los registros de la tabla $tabla";
+        } else {
+            echo "Error al eliminar los registros: " . mysqli_error($conexion);
+         }
+
+        echo "<br><a href='../index.php'>Volver</a>";
+
+    }
+    mysqli_close($conexion);
+
+}
+?>
+
+
+================================================
+FILE: web-03-04-25/registros_db/modificar_alumno.php
+================================================
+<?php
+
+if(!empty($_POST['mail_viejo'])&&!empty($_POST['mail_nuevo'])){
+    include("conexion.php");
+
+    $mail_viejo = $_POST['mail_viejo'];
+    $mail_nuevo = $_POST['mail_nuevo'];
+
+    $sql="update alumnos set mail='$mail_nuevo' where mail='$mail_viejo'";
+
+    mysqli_query($conexion, $sql) or die("Problemas en el select: " . mysqli_error($conexion));
+    echo "El correo electrónico ha sido actualizado de $mail_viejo a $mail_nuevo.";
+    echo "<br><a href='../index.php'>Volver</a>";
+
+    mysqli_close($conexion);
+}
+else{
+    echo "Por favor, complete todos los campos.";
+    echo "<br><a href='../index.php'>Volver</a>";
+}
+
+?>
+
+
+================================================
+FILE: web-03-04-25/registros_db/registrar_alumno.php
+================================================
+<?php
+if (!empty($_REQUEST)) {
+     include("conexion.php");
+
+     $sql="insert into alumnos(nombre,mail,codigocurso) values 
+     ('$_POST[nombre]','$_POST[mail]',$_POST[codigocurso])";
+
+     mysqli_query($conexion,$sql)
+        or die("Problemas en el select" . mysqli_error($conexion));
+
+     mysqli_close($conexion);
+
+     header("Location: ../index.php");
+
+
+    }
+?>
+
+
+================================================
+FILE: web-03-04-25/registros_db/registrar_curso.php
+================================================
+<?php
+if (!empty($_REQUEST)) {
+     include("conexion.php");
+
+     $sql="insert into curso(nombre,estado) values 
+     ('$_POST[nombre]','$_POST[estado]')";
+
+     mysqli_query($conexion,$sql)
+        or die("Problemas en el select" . mysqli_error($conexion));
+
+     mysqli_close($conexion);
+
+     header("Location: ../index.php");
+
+     
+    }
+?>
+
