@@ -9,33 +9,42 @@ die("Problemas en el select cursos" . mysqli_error(mysql: $conexion));
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style.css">
-    <title>Registrar Alumno</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+        <title>Registrar Alumno</title>
 </head> 
 <body>
-   <section>
-        <h1>Registrar alumnos</h1>
-        <form action="registrar_alumno.php" method="post">
+   <section class="m-5">
+   <div class="container">
+        <form action="registrar_alumno.php" class="bg-light p-5 m-5 rounded shadow w-75 mx-auto" style="max-width: 600px;"  method="post">
+            <h1 class="mb-4 text-center">Registrar alumnos</h1>
+            
+            <div class="mb-3"
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class ="form-control" name="nombre" required>
+            </div>
 
-            <label>Ingrese nombre:
-                <input type="text" name="nombre" required>
-            </label><br>
+            <div class="mb-3"
+            <label for="mail" class="form-label">Ingrese mail:</label>
+            <input type="text" class ="form-control" name="mail" required>
+            </div>
 
-            <label>Ingrese mail:
-                <input type="text" name="mail"required><br>
-            </label><br>
-
-            <label> Seleccione el curso:
-                <select name="codigocurso" >
+            <div class="mb-3">
+            <label class="form-label"> Seleccione el curso:
+                <select name="codigocurso" class="form-select" required>
                     <?php while ($curso = mysqli_fetch_array($cursos_select)): ?>
                         <option value="<?= $curso['id'] ?>"><?= $curso['nombre'] ?></option>
                     <?php endwhile; ?>
                 </select>
             </label>
-            <input type="submit" value="Registrar">
+            </div>  
+     
+            <div class="d-flex justify-content-between">
+                    <a href="../index.php" class="btn btn-outline-secondary">← Volver</a>
+                    <button type="submit" class="btn btn-success">Registrar</button>
+            </div>
         </form>
-        <a href="../index.php">←Volver al menú</a>
-
+    </div>
    </section>
    </body>
 </html>
