@@ -90,5 +90,5 @@ if (!empty($_POST['codigo_viejo']) && !empty($_POST['codigo_nuevo']) && !empty($
     mysqli_query($conexion, $sql) or die("Error al actualizar: " . mysqli_error($conexion));
 
     mysqli_close($conexion);
-} 
+}
 ?>

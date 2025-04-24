@@ -80,15 +80,18 @@ if (!empty($_GET['mail'])) {
 
     if (mysqli_num_rows($alumnos) > 0) {
         while ($alumno = mysqli_fetch_array($alumnos)) {
+            echo "<div class='m-5 d-flex justify-content-center'>";
+            echo "<div style='text-align: left;'>";
             echo "<h1>Datos del alumno</h1>";
             echo "Código: " . $alumno['codigo'] . "<br>";
             echo "Nombre: " . $alumno['nombre'] . "<br>";
             echo "Curso: " . $alumno['codigocurso'] . "<br>";
             echo "Mail: " . $alumno['mail'] . "<br>";
-
+            echo "</div>";
+            echo "</div>";
         }
     } else {
-        echo "No se encontraron resultados para el correo electrónico: $email";
+        echo "<h5>No se encontraron resultados para el correo electrónico: $email</h5>";
     }
 
 

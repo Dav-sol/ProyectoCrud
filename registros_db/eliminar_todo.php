@@ -14,7 +14,7 @@
     <section class="m-5">
         <div class="container">
             <form action="eliminar_todo.php" method="post" class="bg-light p-5 rounded shadow mx-auto"
-                style="max-width: 600px;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar?');">
+                style="max-width: 600px;" onsubmit="return confirm('¿Estas seguro de que deseas eliminar?');">
                 <h1 class="mb-4 text-center">Eliminar Todo</h1>
                 <div class="mb-3">
                     <label for="tabla" class="form-label">Seleccione la tabla a eliminar:</label>

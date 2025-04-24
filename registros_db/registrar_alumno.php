@@ -16,7 +16,9 @@ die("Problemas en el select cursos" . mysqli_error(mysql: $conexion));
 <body>
    <section class="m-5">
    <div class="container">
-        <form action="registrar_alumno.php" class="bg-light p-5 m-5 rounded shadow w-75 mx-auto" style="max-width: 600px;"  method="post">
+        <form action="registrar_alumno.php" 
+              class="bg-light p-5 m-5 rounded shadow w-75 mx-auto" 
+              style="max-width: 600px;"  method="post">
             <h1 class="mb-4 text-center">Registrar alumnos</h1>
             
             <div class="mb-3"
