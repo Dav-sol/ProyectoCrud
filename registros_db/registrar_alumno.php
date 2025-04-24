@@ -1,7 +1,7 @@
 
 <?php 
 include(("conexion.php"));
-$cursos_select = mysqli_query(mysql: $conexion, query: "SELECT id, nombre FROM curso") or
+$cursos_select = mysqli_query(mysql: $conexion, query: "select id, nombre from curso where estado= 'A' ") or
 die("Problemas en el select cursos" . mysqli_error(mysql: $conexion));
 ?>
 
