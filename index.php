@@ -1,10 +1,10 @@
 <?php
 include("registros_db/conexion.php");
 
-$alumnos = mysqli_query(mysql: $conexion, query: "SELECT codigo, nombre, mail,codigocurso FROM alumnos") or
+$alumnos = mysqli_query(mysql: $conexion, query: "select codigo, nombre, mail,codigocurso from alumnos") or
     die("Problemas en el select alumnos" . mysqli_error(mysql: $conexion));
 
-$cursos = mysqli_query(mysql: $conexion, query: "SELECT id, nombre, estado FROM curso") or
+$cursos = mysqli_query(mysql: $conexion, query: "select id, nombre, estado from curso") or
     die("Problemas en el select cursos" . mysqli_error(mysql: $conexion));
 ?>
 

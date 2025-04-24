@@ -1,6 +1,6 @@
 <?php
 include("conexion.php");
-$alumnos = mysqli_query(mysql: $conexion, query: "SELECT codigo, nombre, mail FROM alumnos") or
+$alumnos = mysqli_query(mysql: $conexion, query: "select codigo, nombre, mail from alumnos") or
     die("Problemas en el select alumnos" . mysqli_error(mysql: $conexion));
 ?>
 
@@ -71,10 +71,10 @@ if (!empty($_POST['codigo'])) {
     $codigo = $_POST['codigo'];
     $nombre = $_GET['nombre'];
 
-    $consulta = mysqli_query($conexion, "SELECT * FROM alumnos WHERE codigo='$codigo'");
+    $consulta = mysqli_query($conexion, "select * from alumnos where codigo='$codigo'");
 
     if (mysqli_num_rows($consulta) > 0) {
-        $eliminar = mysqli_query($conexion, "DELETE FROM alumnos WHERE codigo='$codigo'")
+        $eliminar = mysqli_query($conexion, "delete from alumnos where codigo='$codigo'")
             or die("Error al eliminar: " . mysqli_error($conexion));
 
         echo "Alumno con código $codigo y nombre $nombre eliminado correctamente.<br>";

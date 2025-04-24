@@ -1,6 +1,6 @@
 <?php
 include("conexion.php");
-$alumnos = mysqli_query(mysql: $conexion, query: "SELECT codigo, nombre, mail FROM alumnos") or
+$alumnos = mysqli_query(mysql: $conexion, query: "select codigo, nombre, mail from alumnos") or
     die("Problemas en el select alumnos" . mysqli_error(mysql: $conexion));
 
 ?>
